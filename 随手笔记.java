@@ -947,7 +947,7 @@ COMMAND	该程序的实际指令
 					  如果 4 和心时 load average中数字 >=12 负载过高
 }
 
-{	top	
+{	top	动态插卡进程信息
 	相当于任务管理器
 	# top
 		top - 12:50:29 up  3:03,  3 users,  load average: 0.05, 0.03, 0.05
@@ -963,10 +963,105 @@ COMMAND	该程序的实际指令
 			hi 硬中断 ，si 软中断 ，st 偷 虚拟机偷取物理机的时间
 	第四行＆第五行：内存 ＆ 虚拟内存
 		total 总计，free空闲，used使用，buff/cache (等价于free -k)
-			
+	
+	top快捷键{
+		默认top 3s 刷新一次，
+		s 修改刷新时间
+		空格 立即刷新
+		p 加PID 查看某个进程
+		P 按 CPU 排序 
+		M 按内存排序
+		T 按时间排序
+		数字1 显示每个内核的CPU使用率
+		u/U 制定显示的用户
+		h 帮助
+	}
+	-p +[PID]	只查看某个进程
+	# ps -aux | grep vim 
+	mk  4535 。。。
+	# top -p 4535	//查询单个进程
 }
 
+{	lsof -p [PID]	
+	-p	查看某个进程都干了什么
+	-i :22 查看22端口 或者黑客开启的后门端口是哪个进程在使用
+}
 
+{	pstree	工具使用
+	-p
+	# pstree -p | more
+}
+
+{	前后台进程切换
+	前台进程：在终端中运行的命令，一但终端关闭前台进程就丢失
+	后台进程：也叫守护进程，是运行在后台的一种特殊进程，不受
+		终端控制，不需要终端交互；服务器多用守护进程 web httpd
+	一些小命令（了解）{
+		&		用在一个命令最后，可以把这个命令放到后台执行
+		ctrl +z 将一个证在执行的前台命令放到后台，并暂停
+		jobs 	查看当前有多少后台进程，是一个作业控制命令
+		fg		将后台的命令调至前台
+		bg		将后台暂停的命令 继续执行
+		# vim a.txt
+		ctrl + z
+		# jobs
+		 [1]+ 已停止	vim a.txt
+		# fg 1
+	}
+}
+
+{	 kill killall pkill	关闭进程
+	kill 关闭进程 kill [PID]
+	killall pkill 用于杀死制定名字的进程
+	进程是通过信号方式来控制哦
+	# kill -l 	//展示所有信号
+// 1) SIGHUP	 2) SIGINT	 3) SIGQUIT	 4) SIGILL	 5) SIGTRAP
+// 6) SIGABRT	 7) SIGBUS	 8) SIGFPE	 9) SIGKILL	10) SIGUSR1
+//11) SIGSEGV	12) SIGUSR2	13) SIGPIPE	14) SIGALRM	15) SIGTERM
+//16) SIGSTKFLT	17) SIGCHLD	18) SIGCONT	19) SIGSTOP	20) SIGTSTP
+//21) SIGTTIN	22) SIGTTOU	23) SIGURG	24) SIGXCPU	25) SIGXFSZ
+//26) SIGVTALRM	27) SIGPROF	28) SIGWINCH	29) SIGIO	30) SIGPWR
+//31) SIGSYS	34) SIGRTMIN	35) SIGRTMIN+1	36) SIGRTMIN+2	37) SIGRTMIN+3
+//38) SIGRTMIN+4	39) SIGRTMIN+5	40) SIGRTMIN+6	41) SIGRTMIN+7	42) SIGRTMIN+8
+//43) SIGRTMIN+9	44) SIGRTMIN+10	45) SIGRTMIN+11	46) SIGRTMIN+12	47) SIGRTMIN+13
+//48) SIGRTMIN+14	49) SIGRTMIN+15	50) SIGRTMAX-14	51) SIGRTMAX-13	52) SIGRTMAX-12
+//53) SIGRTMAX-11	54) SIGRTMAX-10	55) SIGRTMAX-9	56) SIGRTMAX-8	57) SIGRTMAX-7
+//58) SIGRTMAX-6	59) SIGRTMAX-5	60) SIGRTMAX-4	61) SIGRTMAX-3	62) SIGRTMAX-2
+//63) SIGRTMAX-1	64) SIGRTMAX	
+	用的最多的事信号 9) SIGKILL	//关闭进程
+	# kill -9 [PID]
+	# killall sshd
+	# pkill sshd
+}
+
+{	nice renice 进程的优先级管理
+	取值范围(-20~19) 越小优先级越高 默认 0
+	nice 指定程序的运行优先级
+		nice -n 5 command		优先级指定为5
+	renice 
+		nice -10 [PID]			优先级改为 -10
+	# nice -n 5 vim a.txt //指定 一个vim运行的优先级
+	# renice -10 [PID] //指定 一个vim运行的优先级
+}
+
+{	screen	创建会话		//必会
+	安装screen
+		rpm -ivh /mnt/Packages/screen-.....rpm
+	相当打开另一个终端
+	安装完成后直接 
+	使用流程{
+		# screen		//进入另一个窗口
+			进行操作，执行需要运行的备份命令，此时想离开一段时间，
+			但还想让这个命令继续运行
+		在screen会话窗口 按 ctrl + a + d
+		[detached from 44074.pts-3.xuegod63]	//分离出来一个会话
+		# screen -ls 	//显示当时的会话 获得id
+		# screen -r [id]	//即可恢复
+	}
+	# screen -S text	//新建一个叫做test的会话
+	# screen -ls		//列出当前所有会话
+	# screen -r test	//回到test会话
+}
 
 
 
