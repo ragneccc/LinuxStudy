@@ -99,6 +99,8 @@
 			[root@localhost ~]# yum clean all				#清空yum缓存
 			[root@localhost ~]# yum list						#生成缓存列表
 		验证一下
+			安装公钥
+			[root@xuegod63 ~]# rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 			[root@xuegod63 yum.repos.d]# yum -y install httpd
 }
 
@@ -195,7 +197,7 @@
 	[root@xuegod63 ~]# time ls -l /etc/
 	real	0m0.056s
 	user	0m0.016s
-	sys	0m0.040s
+	sys		0m0.040s
 	说明：
 	real：实际使用时间
 	user：用户状态使用的时间
@@ -212,7 +214,7 @@
 		[root@xuegod63 ~]# shutdown -h +10      #10分钟之后关机
 		[root@xuegod63 ~]# shutdown -h 23:30     #指定具体的时间点进行关机
 		[root@xuegod63 ~]# shutdown -h now      #立即关机
-		[root@xuegod63 ~]#shutdown -r  22：22    #22:22 以后重启
+		[root@xuegod63 ~]# shutdown -r  22：22    #22:22 以后重启
 	}
 	{	init 0-6
 		0 系统停机模式，系统默认运行级别不能设置为0，否则不能正常启动，机器关的
@@ -249,7 +251,8 @@
 			mk1:x:1111:1110::/home/mk1:/sbin/nologin
 	}
 	head/tail{ 
-		
+		-10
+		# head -10 [file_name]
 	}
 	less/more{
 		
@@ -971,10 +974,10 @@ COMMAND	该程序的实际指令
 		p 加PID 查看某个进程
 		P 按 CPU 排序 
 		M 按内存排序
-		T 按时间排序
-		数字1 显示每个内核的CPU使用率
-		u/U 制定显示的用户
-		h 帮助
+		T 按时间排序 
+		数字1 显示每个内核的CPU使用率 
+		u/U 制定显示的用户 
+		h 帮助 
 	}
 	-p +[PID]	只查看某个进程
 	# ps -aux | grep vim 
@@ -999,7 +1002,7 @@ COMMAND	该程序的实际指令
 	一些小命令（了解）{
 		&		用在一个命令最后，可以把这个命令放到后台执行
 		ctrl +z 将一个证在执行的前台命令放到后台，并暂停
-		jobs 	查看当前有多少后台进程，是一个作业控制命令
+		jobs 	查看当前有多少后台进程，是一个作业控制命令 
 		fg		将后台的命令调至前台
 		bg		将后台暂停的命令 继续执行
 		# vim a.txt
@@ -1008,7 +1011,7 @@ COMMAND	该程序的实际指令
 		 [1]+ 已停止	vim a.txt
 		# fg 1
 	}
-}
+} 
 
 {	 kill killall pkill	关闭进程
 	kill 关闭进程 kill [PID]
@@ -1037,7 +1040,7 @@ COMMAND	该程序的实际指令
 {	nice renice 进程的优先级管理
 	取值范围(-20~19) 越小优先级越高 默认 0
 	nice 指定程序的运行优先级
-		nice -n 5 command		优先级指定为5
+		nice -n 5 command		优先级指定为5 
 	renice 
 		nice -10 [PID]			优先级改为 -10
 	# nice -n 5 vim a.txt //指定 一个vim运行的优先级
@@ -1060,7 +1063,7 @@ COMMAND	该程序的实际指令
 	}
 	# screen -S text	//新建一个叫做test的会话
 	# screen -ls		//列出当前所有会话
-	# screen -r test	//回到test会话
+	# screen -r test	//回到test会话 
 }
 
 
