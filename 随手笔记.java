@@ -1109,9 +1109,50 @@ COMMAND	该程序的实际指令
 		# locate -s passwd
 	}
 	find{
-
-
-
+		时间相关{
+			-atime
+			-mtiem
+			-mtime
+			-mtime n	//n天之前的一天内被更改过的文件
+			-mtime +n	//列出n天之前不包括n天本身被改过内容的文件名
+			-mtime -n	//列出在n天之内被该国的内容的文件名
+			-newer filename	//列出比给出文件还要新的文件的文件名
+			# find / -atime 0 	//列出冲从现在开始到24小时前文件
+			# find / -mtime 3	//3天前的24小时内被改动文件
+			# find / -mtime -4	//列出4天内改过
+			# fine / -mtime +4	//列出4天之前（不包括四天）改过的文件
+			# fine /etc -newer /etc/passwd
+		}
+		用户分组{	
+			-uid n		//寻找uid为n的文件
+			-gid n		//寻找gid为n的文件
+			-user name	//寻找user为name的文件
+			-group name	//寻找group为name 的文件
+			-nouser		//寻找没有拥有着的文件
+			-nogroup	//寻找没有分组的文件
+			# find /home -user mk
+			# find / -nouser	//找出不正常的文件
+		}
+		文件权限及名称相关{
+			-name filename	//搜寻文件名为filename的文件
+			-size +/-SIZE	//+大于多少-小于多少 单位c：byte k:1024bytes
+			-type TYPE 	//按类型查找一般文件f，设备文件b/c，目录d，
+					//链接文件l，solket s，FIFO p
+			-perm mode 	//权限刚好等于mode的文件 4755
+			-perm -mode	//必须包括mode的权限的文件 可以多
+			-perm /mode	//包含mode权限的权限的文件 可以少
+			# find / -name passwd
+			# find / -name "*passwd*"
+			# find /run -type s	
+			# find / -perm 755  //比755权限多的文件
+			# find / -perm /755 //比755权限少的文件 
+			# find /usr/bin /usr/sbin -perm /6000		
+			}
+		find的额外动作{find / perm /6000  -exec ls -l  {}    \;
+			{} 		//代表由find找到的内容
+			-exec到\; 	//代表find动作的开始[-exec]到结束[\;]
+					//在这中间就是find指令的额外动作
+		}
 
 
 
