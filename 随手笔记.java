@@ -1068,6 +1068,64 @@ COMMAND	该程序的实际指令
 
 
 
+{	chattr/lsattr  文件的隐藏属性
+	chattr{
+		-i	文件不可更改删除
+		-a	只能追加
+		# chattr +i filename
+		# chattr -i filename
+	}
+	lsttr{	
+		-a	显示隐藏属性
+		-d	如果是目录，仅仅列出目录本身属性非目录内的属性
+		-R	连同子目录一同列出来
+		# lsattr -a filename
+	}
+}
+
+
+{	whereis/locate/find	文件名的搜索
+	whereisP{
+		-l	只查询几个主要目录
+		-b	只找binary格式文件
+		-m	只找说明文件manual路径下的
+		-s	只找source源文件
+		-u	只找不再上述三种文件的文件
+		# whereis -lb passwd
+		# whereis -m man
+	}
+	locate{	updatedb
+		文件名查询速度很快
+		主要由于这个命令是把文件名列表放到一个文件内
+		可以通过updatedb来更新这个库
+		# updatedb //更新文件库
+		-i	忽略大小写
+		-c	不输出文件名仅显示数量
+		-l	仅仅输出即行 多了不要输出
+		-s	输出locate数据库文件信息，包括记录的文件/目录等
+		-r	后接正则表达是
+		# locate -i PasSwD
+		# locate -l 5 passwd
+		# locate -s passwd
+	}
+	find{
+
+
+
+
+
+
+	}
+}
+
+
+
+
+
+
+
+
+
 
 
 
