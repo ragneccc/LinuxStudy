@@ -1159,7 +1159,32 @@ COMMAND	该程序的实际指令
 	}
 }
 
-
+文件系统{
+	centos7 默认使用xfs系统
+	存取的方法我们称为索引式文件系统(indexed allocation)
+	inode: 文件的属性,一个文件一个inode,文件的数据所在的block号码
+			存取模式(read/write/excute)
+			文件群组(owner/group)
+			文件容量
+			创建改变(ctime)
+			最近读取(atime)
+			最近修改(mtime)
+			文件特性标志(flag) eg:SetUID
+			
+	block: 实际记录文件的内容,文件太大时,会占用多个block
+	Superblock: 记录整个filesystem相关信息的扇区
+			记录inode/block的总量
+			block与inode大小 （block 为1K 2K 4K，inode 为128/256/512Bytes
+			filesystem的最近挂载，写入，检验时间 和 相关文件信息
+			1Byte（valid bit状态位） 是否挂在位 0未挂载 1以挂载 
+	磁盘重组: 索引式文件系统，各个block过于分散需要从新调整
+	
+	ext2文件系统中把是多个区块分区，每个区都有独立的
+				 inode/block/superblock	系统
+	一个block最多只存放一个文件，一个大文件占用多个block
+	一个block是由 1 个或 多个扇区（sector）
+	
+}
 
 
 
